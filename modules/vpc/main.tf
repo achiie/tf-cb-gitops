@@ -13,20 +13,22 @@
 # limitations under the License.
 
 
-locals {
-  network = "${element(split("-", var.subnet), 0)}"
-}
+module "vpc" {
+  source  = "terraform-google-modules/network/google"
+  version = "3.3.0"
 
-resource "google_compute_firewall" "allow-http" {
-  name    = "${local.network}-allow-http"
-  network = "${local.network}"
-  project = "${var.project}"
+  project_id   = "${var.project}"
+  network_name = "${var.env}"
 
-  allow {
-    protocol = "tcp"
-    ports    = ["80"]
+  subnets = [
+    {
+      subnet_name   = "${var.env}-subnet-01"
+      subnet_ip     = "10.${var.env == "dev" ? 10 : 20}.10.0/24"
+      subnet_region = "us-west1"
+    },
+  ]
+
+  secondary_ranges = {
+    "${var.env}-subnet-01" = []
   }
-
-  target_tags   = ["http-server"]
-  source_ranges = ["0.0.0.0/0"]
 }

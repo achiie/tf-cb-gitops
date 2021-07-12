@@ -13,20 +13,10 @@
 # limitations under the License.
 
 
-locals {
-  network = "${element(split("-", var.subnet), 0)}"
+output "instance_name" {
+  value = "${google_compute_instance.http_server.name}"
 }
 
-resource "google_compute_firewall" "allow-http" {
-  name    = "${local.network}-allow-http"
-  network = "${local.network}"
-  project = "${var.project}"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["80"]
-  }
-
-  target_tags   = ["http-server"]
-  source_ranges = ["0.0.0.0/0"]
+output "external_ip" {
+  value = "${google_compute_instance.http_server.network_interface.0.access_config.0.nat_ip}"
 }
