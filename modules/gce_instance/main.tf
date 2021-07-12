@@ -6,7 +6,7 @@ locals {
 resource "google_compute_instance" "gce_instance" {
   project      = "${var.project}"
   zone         = "us-west1-a"
-  name         = "${local.network}-apache2-instance"
+  name         = "${local.network}-apache2-gce-instance"
   machine_type = "f1-micro"
 
   metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<html><body><h1>Environment: ${local.network}</h1></body></html>' | sudo tee /var/www/html/index.html"
