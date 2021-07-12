@@ -13,8 +13,8 @@ module "vpc" {
   env     = "${local.env}"
 }
 
-module "http_server" {
-  source  = "../../modules/http_server"
+module "gce_instance" {
+  source  = "../../modules/gce_instance"
   project = "${var.project}"
   subnet  = "${module.vpc.subnet}"
 }
