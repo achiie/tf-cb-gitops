@@ -1,4 +1,4 @@
-# Managing infrastructure as code with Terraform, Cloud Build ##
+# Managing infrastructure as code with Terraform, Cloud Build 
 
 This is the repo for the [Managing infrastructure as code with Terraform, Cloud Build, and GitOps]
 ## Configuring your **dev** environment
